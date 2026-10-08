@@ -1,9 +1,10 @@
+import { LAYERS } from "./config/layers";
 import { GeoMap } from "./map/main-map";
 
 const canvas = document.querySelector<HTMLCanvasElement>('canvas');
 if (!canvas) throw new Error('Canvas not found');
 
 
-const map = new GeoMap(canvas);
+const map = new GeoMap(canvas, LAYERS);
 
-map.load();
+map.start();

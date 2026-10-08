@@ -11,6 +11,13 @@ export interface RawCoordinateFormats {
     MultiPolygon: Coordinate[][][];
 }
 
+export type RawGeometry = {
+    [K in keyof RawCoordinateFormats]: {
+        type: K;
+        coordinates: RawCoordinateFormats[K];
+    }
+}[keyof RawCoordinateFormats];
+
 export interface ChildType {
     MultiLineString: "LineString";
     MultiPolygon: "Polygon";
@@ -32,8 +39,6 @@ export type PreparedMulti = {
     }
 }
 
-export type PreparedGeometry = PreparedSingle[SingleType] & PreparedMulti[MultiType];
-
 export type BuiltSingle = {
     [K in SingleType]: {
         type: K,
@@ -50,7 +55,11 @@ export type BuiltMulti = {
     }
 }
 
-export type BuiltGeometry = BuiltSingle[SingleType] & BuiltMulti[MultiType]
+export type PreparedGeometryMap = PreparedSingle & PreparedMulti;
+export type PreparedGeometry = PreparedGeometryMap[keyof PreparedGeometryMap];
+
+export type BuiltGeometryMap = BuiltSingle & BuiltMulti;
+export type BuiltGeometry = BuiltGeometryMap[keyof BuiltGeometryMap];
 
 export interface ZoomLevel {
     upperZoomBound: number;
