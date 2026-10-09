@@ -1,26 +1,31 @@
 {
-  "name": "mapping-app-6",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@types/mapbox": "^1.6.45",
-    "@types/mapbox__vector-tile": "^1.3.4",
-    "@types/pbf": "^3.0.5",
-    "@types/shpjs": "^3.4.7",
-    "typescript": "~6.0.2",
-    "vite": "^8.3.0"
-  },
-  "dependencies": {
-    "@mapbox/vector-tile": "^3.0.0",
-    "mapbox": "^1.0.0-beta10",
-    "pbf": "^5.1.2",
-    "pmtiles": "^4.5.0",
-    "shpjs": "^6.2.0"
-  }
+    "name": "mapping-app-6",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "build:islands": "tsx scripts/process-islands.ts data-raw/islands.geojson public/data/island-labels.json",
+        "build:islands:update": "tsx scripts/process-islands.ts data-raw/islands.geojson public/data/island-labels.json --mode update",
+        "build:islands:overwrite": "tsx scripts/process-islands.ts data-raw/islands.geojson public/data/island-labels.json --mode overwrite"
+    },
+    "devDependencies": {
+        "@types/mapbox": "^1.6.45",
+        "@types/mapbox__vector-tile": "^1.3.4",
+        "@types/pbf": "^3.0.5",
+        "@types/polylabel": "^2.0.0",
+        "@types/shpjs": "^3.4.7",
+        "typescript": "~6.0.2",
+        "vite": "^8.3.0"
+    },
+    "dependencies": {
+        "@mapbox/vector-tile": "^3.0.0",
+        "mapbox": "^1.0.0-beta10",
+        "pbf": "^5.1.2",
+        "pmtiles": "^4.5.0",
+        "polylabel": "^2.1.0",
+        "shpjs": "^6.2.0"
+    }
 }

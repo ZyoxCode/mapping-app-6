@@ -44,7 +44,6 @@ export abstract class GeometryLayer extends Layer {
 
     async load(ctx: CanvasRenderingContext2D): Promise<void> {
         const rawFeatures = await this.loadFeatures();
-        console.log(rawFeatures);
         this.features = rawFeatures.flatMap(feature => { // using flatmap and then returning [] for invalid ones and wrapping the valid ones in a list basically filters for me
             if (!feature.geometry || feature.geometry.coordinates.length == 0) return [];
 

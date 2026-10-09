@@ -1,6 +1,7 @@
 import type { ZoomLevel } from "../core/geometry";
 import { FileLayer } from "../layers/geometry-layers/file-layer/file-layer";
 import { StaticLayer } from "../layers/geometry-layers/static-layer/static-layer";
+import { LabelLayer } from "../layers/label-layers/label-layer";
 import { TileLayer } from "../layers/tile-layers/tile-layer";
 import { always, Style } from "../styles/stylerule";
 
@@ -38,10 +39,21 @@ export const LAYERS = [
     //     zoomLevels: alwaysMaxDetail,
     // }),
     new TileLayer({
-        name: 'Test Tiled',
+        name: 'Land',
         path: 'land.pmtiles',
         sourceLayer: 'land',
         geometryStyle: always(new Style({ fillColor: "#90be8b" })),
-    })
+    }),
+
+    new LabelLayer({
+        name: "Test Falklands Labels",
+        path: "overpass-processed/export-1.json",
+        geometryStyle: always(new Style({
+            font: 'italic 500 12px "Outfit", sans-serif',
+            fillColor: '#222222',
+            strokeColor: '#ffffff',
+            lineWidth: 1,
+        })),
+    }),
 
 ]

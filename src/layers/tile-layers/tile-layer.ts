@@ -37,7 +37,7 @@ export class TileLayer extends Layer {
     minTileZoom: number = 0;
     maxTileZoom: number = 0;
 
-    baseTileLayer: number = 2;
+    baseTileLayer: number = 3;
 
     constructor(options: TileLayerOptions) {
         super(options);

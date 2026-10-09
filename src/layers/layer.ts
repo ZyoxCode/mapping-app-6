@@ -1,5 +1,6 @@
 import { mergeWithDefaults } from "../core/utils";
 import type { Viewport } from "../core/viewport";
+import type { LabelQueueEntry } from "../labels/label-queue";
 import type { StyleRule } from "../styles/stylerule";
 
 export interface LayerOptions {
@@ -31,6 +32,7 @@ export abstract class Layer {
 
     abstract load(ctx: CanvasRenderingContext2D): Promise<void>;
 
-    abstract render(ctx: CanvasRenderingContext2D, viewport: Viewport): void;
+    abstract render(ctx: CanvasRenderingContext2D, viewport: Viewport, labelQueue: LabelQueueEntry[]): void;
+
 
 }

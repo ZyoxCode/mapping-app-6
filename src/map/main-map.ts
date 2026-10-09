@@ -1,6 +1,7 @@
 import { INITIAL_ZOOM } from "../config/defaults";
 import { createViewport, resizeViewport, visibleBounds, zoomFromScale, type Viewport } from "../core/viewport";
 import { attachPanZoom } from "../input/pan-zoom";
+import { renderLabelQueue, type LabelQueueEntry } from "../labels/label-queue";
 import type { Layer } from "../layers/layer";
 
 export class GeoMap {
@@ -10,6 +11,7 @@ export class GeoMap {
     ctx: CanvasRenderingContext2D;
     layers: Layer[];
     redraw: boolean = true;
+    labelQueue: LabelQueueEntry[] = [];
 
     constructor(canvas: HTMLCanvasElement, layers: Layer[]) {
         this.canvas = canvas;
@@ -68,17 +70,17 @@ export class GeoMap {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        const bounds = visibleBounds(viewport);
-        const zoom = zoomFromScale(viewport.scale);
+        this.labelQueue = [];
 
         for (const layer of this.layers) {
             if (!layer.ready) continue;
             ctx.save();
-            // world units -> device pixels, with y flipped
             ctx.setTransform(dpr * viewport.scale, 0, 0, -dpr * viewport.scale, dpr * viewport.translateX, dpr * viewport.translateY);
-            layer.render(ctx, viewport);
+            layer.render(ctx, viewport, this.labelQueue);
             ctx.restore();
         }
+        // console.log(this.labelQueue.length);
+        renderLabelQueue(ctx, this.viewport, this.labelQueue);
     }
 
     syncCanvasSize(): void {

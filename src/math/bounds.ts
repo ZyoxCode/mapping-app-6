@@ -38,3 +38,7 @@ export function boundsContainsPoint(bounds: Bounds, point: Coordinate): boolean 
     return point[0] >= bounds[0][0] && point[0] <= bounds[1][0] &&
         point[1] >= bounds[0][1] && point[1] <= bounds[1][1];
 }
+
+export function offsetBounds(Bounds: Bounds, x: number, y: number): Bounds {
+    return [[Bounds[0][0] + x, Bounds[0][1] + y], [Bounds[1][0] + x, Bounds[1][1] + y]];
+}
